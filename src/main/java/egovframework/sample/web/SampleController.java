@@ -1,12 +1,15 @@
 package egovframework.sample.web;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
 public class SampleController {
 
-	@GetMapping("/test.do")
+	@ResponseBody
+	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
 	public String test() {
 		return "test";
 	}

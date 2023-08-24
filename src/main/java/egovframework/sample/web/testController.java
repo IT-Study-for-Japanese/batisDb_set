@@ -29,18 +29,18 @@ public class testController {
 	
 	@Resource(name="sampleService")
 	private SampleService sampleService;
-
-	@RequestMapping("/test.do")
-	public String test() {
-		return "hello";
-	}
-	
-	@RequestMapping(value="/test2.do")	
-	@ResponseBody
-	public String test2() {
-		
-		return "test2.."; 
-	}
+//
+//	@RequestMapping("/test.do")
+//	public String test() {
+//		return "hello";
+//	}
+//	
+//	@RequestMapping(value="/test2.do")	
+//	@ResponseBody
+//	public String test2() {
+//		
+//		return "test2.."; 
+//	}
 	
 	@RequestMapping(value="/insert.do",method = RequestMethod.GET)
 	public String insertSampleView(SampleVO vo) throws Exception{
