@@ -94,6 +94,8 @@ hs_err_pid*
 replay_pid*
 
 org.eclipse.core.resources.prefs
+org.eclipse.jdt.core.prefs
+settings.json
 pom.properties
 .classpath
 .projects
