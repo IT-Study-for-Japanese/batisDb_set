@@ -2,6 +2,8 @@ package egovframework.sample.service;
 
 import java.util.List;
 
+import egovframework.sample.vo.BikeReservePlaceVO;
+
 public interface SampleService {
 
 	void insertSample(SampleVO vo) throws Exception;

@@ -18,8 +18,10 @@ public class SampleController {
 	@RequestMapping(value = "/test.do") // 테스트용
 	public String test() {
 		
+		
+		
 		return "test";
-	
+		
 	}
 
 

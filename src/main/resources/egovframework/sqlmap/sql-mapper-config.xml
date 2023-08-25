@@ -6,6 +6,6 @@
 		<typeAlias alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 		<typeAlias alias="test" type="egovframework.sample.service.SampleVO"/>
 		<typeAlias alias="testVO" type="egovframework.sample.service.TestVo"/>
-    	<typeAlias alias="BikeReservePlace" type="egovframework.sample.service.BikeReservePlaceVO"/>
+    	<typeAlias alias="BikeReservePlace" type="egovframework.sample.vo.BikeReservePlaceVO"/>
     </typeAliases>
 </configuration>

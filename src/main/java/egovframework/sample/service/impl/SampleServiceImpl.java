@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import egovframework.sample.service.BikeReservePlaceVO;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
+import egovframework.sample.vo.BikeReservePlaceVO;
 @Service("sampleService")
 public class SampleServiceImpl  implements SampleService {
 	

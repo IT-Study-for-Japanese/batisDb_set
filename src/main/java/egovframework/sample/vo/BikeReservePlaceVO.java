@@ -1,4 +1,4 @@
-package egovframework.sample.service;
+package egovframework.sample.vo;
 
 public class BikeReservePlaceVO {
 	

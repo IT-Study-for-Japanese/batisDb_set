@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
-import egovframework.sample.service.BikeReservePlaceVO;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleVO;
+import egovframework.sample.vo.BikeReservePlaceVO;
 
 @Repository("daoIBatis")
 public class SampleDAOIBatis extends EgovAbstractMapper implements SampleDAO{
