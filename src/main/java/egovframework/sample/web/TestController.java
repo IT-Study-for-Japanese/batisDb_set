@@ -1,16 +1,26 @@
 package egovframework.sample.web;
 
+import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.sample.service.SampleService;
+import egovframework.sample.vo.BikeReservePlaceVO;
 import egovframework.sample.vo.BikeVO;
 import egovframework.sample.vo.ReservationVO;
 
@@ -89,5 +99,49 @@ public class TestController {
 		return "test";
 		
 	}
+	
+	 @RequestMapping(value="/reserveTest.do", method = {RequestMethod.GET, RequestMethod.POST}) //대여소 위치확인 페이지이동
+		public String reservPage(Model model, ModelAndView mv) throws Exception {
+			
+			model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
+			//mv.addObject("rentList", daojdbc.selectRent());
+			
+			return "reservTest";
+			
+		}
+	 
+	@RequestMapping(value="/searchTest.do",method = RequestMethod.POST) //리스트 검색 
+	@ResponseBody
+	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent ,Model model) throws SQLException {
+		System.out.println("컨트롤러확인1");
+		ResponseEntity result = null;
+			
+		try {
+			
+		    List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent.getReservePlaceName());
+		    result = ResponseEntity.ok().body(list);
+
+		} catch (Exception e) {
+				
+		    result = ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(e.getMessage());
+		}
+			
+		return result; 
+			
+		}
+	
+	@RequestMapping(value="/searchTest.do",method = RequestMethod.POST) // 예약정보 컨트롤러로 넘기기 테스트 
+	@ResponseBody
+	public String reserveGo(@RequestBody String cDate ,Model model) throws SQLException {
+		System.out.println("컨트롤러확인1");
+		
+			
+		
+		return null; 
+			
+		}
+	
 	
 }

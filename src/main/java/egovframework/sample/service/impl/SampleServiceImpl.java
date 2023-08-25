@@ -19,7 +19,7 @@ public class SampleServiceImpl  implements SampleService {
 	private SampleDAO sampleDAO;
 	
 	public SampleServiceImpl() {
-		System.out.println(" SampleServiceImpl()  ");
+		
 	}
 	
 	public void insertSample(SampleVO vo) throws Exception{
