@@ -11,10 +11,10 @@
     <title>대여소지도</title>
 
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=bazkpg4jtl"></script> <!-- 네이버지도api설정  -->
-    <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.7.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/rent.js"></script>
-	<script src="${pageContext.request.contextPath}/js/map.js"></script>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rent.css" /> <!-- css 파일 -->
+    <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/service/rent.js"></script>
+	<script src="${pageContext.request.contextPath}/js/components/public/map.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/service/rent/rent.css" /> <!-- css 파일 -->
 
 </head>                             
 <body>
