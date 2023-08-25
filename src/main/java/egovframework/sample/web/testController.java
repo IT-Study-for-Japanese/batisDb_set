@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import egovframework.sample.service.BikeReservePlace;
+import egovframework.sample.service.BikeReservePlaceVO;
 import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
 import egovframework.sample.service.TestVo;
@@ -94,13 +94,13 @@ public class testController {
 	 
 	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색 
 	@ResponseBody
-	public ResponseEntity searchRent(@RequestBody BikeReservePlace testRent ,Model model) throws SQLException {
+	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent ,Model model) throws SQLException {
 		System.out.println("컨트롤러확인1");
 		ResponseEntity result = null;
 			
 		try {
 			
-		    List<BikeReservePlace> list = sampleService.selectSearchBikePlace(testRent.getReservePlaceName());
+		    List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent.getReservePlaceName());
 		    result = ResponseEntity.ok().body(list);
 
 		} catch (Exception e) {

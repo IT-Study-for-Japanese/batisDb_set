@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
-import egovframework.sample.service.BikeReservePlace;
+import egovframework.sample.service.BikeReservePlaceVO;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleVO;
 
@@ -19,14 +19,14 @@ public class SampleDAOIBatis extends EgovAbstractMapper implements SampleDAO{
 	}
 
 	@Override
-	public List<BikeReservePlace> selectBikePlace() throws Exception {//대여소전체리스트
+	public List<BikeReservePlaceVO> selectBikePlace() throws Exception {//대여소전체리스트
 		
 		return selectList("selectBikePlace");
 		
 	}
 
 	@Override
-	public List<BikeReservePlace> selectSearchBikePlace(String reservePlaceName) {//대여소검색리스트
+	public List<BikeReservePlaceVO> selectSearchBikePlace(String reservePlaceName) {//대여소검색리스트
 		System.out.println("dao확인");
 		return selectList("selectSearchBikePlace");
 	}

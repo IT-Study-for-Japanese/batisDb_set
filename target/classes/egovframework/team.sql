@@ -15,3 +15,5 @@ INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(1,11,true);
 INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(2,11,true);
 
 select * from bike;
+
+SELECT COUNT(*) AS count_available_reserve FROM bike WHERE bike_reserve_place_id = 11 AND bike_status = TRUE;
