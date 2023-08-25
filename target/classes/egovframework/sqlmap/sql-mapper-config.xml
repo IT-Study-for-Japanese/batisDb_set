@@ -7,5 +7,6 @@
 		<typeAlias alias="test" type="egovframework.sample.service.SampleVO"/>
 		<typeAlias alias="testVO" type="egovframework.sample.service.TestVo"/>
     	<typeAlias alias="BikeReservePlace" type="egovframework.sample.vo.BikeReservePlaceVO"/>
+    	<typeAlias alias="Bike" type="egovframework.sample.vo.BikeVO"/>
     </typeAliases>
 </configuration>
