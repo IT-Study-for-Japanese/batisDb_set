@@ -77,7 +77,7 @@ public class ReserveController {
 			// model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
 			//mv.addObject("rentList", daojdbc.selectRent());
 			
-			return "reservHome";
+			return "reserveHome";
 			
 		}
 	 
