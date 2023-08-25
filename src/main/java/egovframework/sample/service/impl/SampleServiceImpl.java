@@ -6,10 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import egovframework.sample.service.BikeReservePlace;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
+import egovframework.sample.vo.BikeVO;
+import egovframework.sample.vo.BikeReservePlaceVO;
 @Service("sampleService")
 public class SampleServiceImpl  implements SampleService {
 	
@@ -23,14 +24,19 @@ public class SampleServiceImpl  implements SampleService {
 		sampleDAO.insertSample(vo);
 	}
 	@Override
-	public List<BikeReservePlace> selectBikePlace() throws Exception {//대여소전체리스트
+	public List<BikeReservePlaceVO> selectBikePlace() throws Exception {//대여소전체리스트
 		
 		return sampleDAO.selectBikePlace();
 	}
 	@Override
-	public List<BikeReservePlace> selectSearchBikePlace(String reservePlaceName) {//대여소검색리스트
-		System.out.println("서비스확인1");
+	public List<BikeReservePlaceVO> selectSearchBikePlace(String reservePlaceName) {//대여소검색리스트
+		
 		return sampleDAO.selectSearchBikePlace(reservePlaceName);
+	}
+	@Override
+	public int selectBikeCount(BikeVO bike) { //대여가능 자전거 수
+		
+		return sampleDAO.selectBikeCount(bike);
 	}
 	
 }

@@ -25,8 +25,17 @@
 	
 	<select id="selectSearchBikePlace" resultMap="BikeReservePlace">
 		SELECT * FROM bike_reserve_place 
-		WHERE bike_reserve_place_addr LIKE '%'#reservePlaceName#'%' OR 
-		bike_reserve_place_name LIKE '%'#reservePlaceName#'%'
+		WHERE bike_reserve_place_addr LIKE '%'#{reservePlaceName}'%' OR 
+		bike_reserve_place_name LIKE '%'#{reservePlaceName}'%'
 	</select>
+	
+	<select id="selectBikeCount" resultType="int">
+		SELECT COUNT(*) AS count_available_reserve
+		FROM bike WHERE bike_reserve_place_id = #{bike_reserve_place_id}
+		AND bike_status = #{bike_status};		
+	</select>
+	
+	
+	
 	
 </mapper>

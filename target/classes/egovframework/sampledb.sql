@@ -51,4 +51,4 @@ CREATE TABLE bike_reserve_place (
 select * from bike_reserve_place;
 SELECT * FROM bike_reserve_place WHERE bike_reserve_place_addr LIKE '%'#reservePlaceName#'%' OR bike_reserve_place_name LIKE '%'#reservePlaceName#'%';
 
-
+select * from bike_reserve_place;

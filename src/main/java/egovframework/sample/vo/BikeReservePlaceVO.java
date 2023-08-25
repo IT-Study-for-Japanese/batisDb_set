@@ -1,6 +1,6 @@
-package egovframework.sample.service;
+package egovframework.sample.vo;
 
-public class BikeReservePlace {
+public class BikeReservePlaceVO {
 	
 	private int reservePlaceId; //장소고유번호
 	private String reservePlaceName; //장소명
@@ -31,14 +31,14 @@ public class BikeReservePlace {
 				+ ", reservePlaceAddr=" + reservePlaceAddr + "]";
 	}
 	
-	public BikeReservePlace(int reservePlaceId, String reservePlaceName, String reservePlaceAddr) {
+	public BikeReservePlaceVO(int reservePlaceId, String reservePlaceName, String reservePlaceAddr) {
 		super();
 		this.reservePlaceId = reservePlaceId;
 		this.reservePlaceName = reservePlaceName;
 		this.reservePlaceAddr = reservePlaceAddr;
 	}
 	
-	public BikeReservePlace() {
+	public BikeReservePlaceVO() {
 		super();
 	}
 	
