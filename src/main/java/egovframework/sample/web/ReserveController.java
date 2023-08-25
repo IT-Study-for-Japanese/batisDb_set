@@ -30,19 +30,7 @@ public class ReserveController {
 	
 	@Resource(name="sampleService")
 	private SampleService sampleService; //서비스
-//
-//	@RequestMapping("/test.do")
-//	public String test() {
-//		return "hello";
-//	}
-//	
-//	@RequestMapping(value="/test2.do")	
-//	@ResponseBody
-//	public String test2() {
-//		
-//		return "test2.."; 
-//	}
-	
+
 	@RequestMapping(value="/insert.do",method = RequestMethod.GET)
 	public String insertSampleView(SampleVO vo) throws Exception{
 		return "insertSample";
@@ -86,7 +74,7 @@ public class ReserveController {
 	 @RequestMapping(value="/reserveHome.do", method = {RequestMethod.GET, RequestMethod.POST}) //대여소 위치확인 페이지이동
 		public String reservPage(Model model, ModelAndView mv) throws Exception {
 			
-			model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
+			// model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
 			//mv.addObject("rentList", daojdbc.selectRent());
 			
 			return "reservHome";
