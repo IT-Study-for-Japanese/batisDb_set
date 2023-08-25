@@ -13,7 +13,6 @@
     <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.7.0.min.js"></script> <!-- jquery 3.7버전 -->
 	<script src="${pageContext.request.contextPath}/js/rent.js"></script> <!-- jquery 파일 -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rent.css" /> <!-- css 파일 -->
-  	
 <style>
 .modal {
   display: none; /* 클릭전 안보이게한다 */
