@@ -19,23 +19,36 @@
 		#{name})		
 	</insert>
 	
-	<select id="selectBikePlace" resultMap="BikeReservePlace">
+	<select id="selectBikePlace" resultMap="BikeReservePlace"> <!-- 대여소 리스트 -->
 		select * from bike_reserve_place
 	</select>
 	
-	<select id="selectSearchBikePlace" resultMap="BikeReservePlace">
+	<select id="selectSearchBikePlace" resultMap="BikeReservePlace"> <!-- 검색한 대여소 리스트 -->
 		SELECT * FROM bike_reserve_place 
 		WHERE bike_reserve_place_addr LIKE '%'#{reservePlaceName}'%' OR 
 		bike_reserve_place_name LIKE '%'#{reservePlaceName}'%'
 	</select>
 	
-	<select id="selectBikeCount" resultType="int">
+	<select id="selectBikeCount" resultType="int"> <!-- 대여가능 자전거 수 -->
 		SELECT COUNT(*) AS count_available_reserve
-		FROM bike WHERE bike_reserve_place_id = #{bike_reserve_place_id}
-		AND bike_status = #{bike_status};		
+		FROM bike WHERE bike_reserve_place_id = #{bikeReservePlaceId}
+		AND bike_status = #{bikeStatus};		
+	</select>
+
+	<select id="selectBikeId" resultType="int"> <!-- 대여할 자전거 번호 -->
+		select MIN(bike_id) from bike where bike_reserve_place_id = #{bikeReservePlaceId} AND bike_status = #{bikeStatus};		
 	</select>
 	
+	<insert id="insertReservation"> <!-- 예약등록 -->
+		
+		insert into reservation(user_id, bike_id, start_time, period) values(#{userId},#{bikeId},#{startTime},#{period}); 
+		
+	</insert>
 	
-	
+	<update id="changeStatus"> <!-- 자전거 예약 상태 변경 -->
+		
+		update bike set bike_status = 0 where bike_id = #{bikeId};
+		
+	</update>
 	
 </mapper>

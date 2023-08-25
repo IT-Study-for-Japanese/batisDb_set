@@ -13,7 +13,21 @@ INSERT INTO bike_reserve_place(bike_reserve_place_name,bike_reserve_place_addr) 
 
 INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(1,11,true);
 INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(2,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(3,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(4,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(5,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(6,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(7,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(8,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(9,11,true);
+INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(10,11,true);
+
+select MIN(bike_id) from bike where bike_reserve_place_id = 11 AND bike_status = TRUE;
+
 
 select * from bike;
 
 SELECT COUNT(*) AS count_available_reserve FROM bike WHERE bike_reserve_place_id = 11 AND bike_status = TRUE;
+
+insert into user values('tkj','KIM','123',01088711061); 
+
