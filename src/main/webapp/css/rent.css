@@ -40,3 +40,38 @@ th, td {
 th {
 	background-color: #f2f2f2;
 }
+
+.modal {
+	display: none; /* 클릭전 안보이게한다 */
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: "200px";
+	height: "200px";
+	/* overflow: auto; */
+
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
