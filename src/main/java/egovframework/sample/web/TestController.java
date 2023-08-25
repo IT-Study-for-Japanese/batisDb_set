@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import egovframework.sample.service.SampleService;
 
 @Controller
-public class SampleController {
+public class TestController {
 	
 	@Resource(name="sampleService")
 	private SampleService sampleService;

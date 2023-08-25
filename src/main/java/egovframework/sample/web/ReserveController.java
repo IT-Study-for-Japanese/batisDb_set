@@ -26,10 +26,10 @@ import egovframework.sample.service.TestVo;
 import egovframework.sample.vo.BikeReservePlaceVO;
 
 @Controller 
-public class testController {
+public class ReserveController {
 	
 	@Resource(name="sampleService")
-	private SampleService sampleService;
+	private SampleService sampleService; //서비스
 //
 //	@RequestMapping("/test.do")
 //	public String test() {
