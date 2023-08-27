@@ -5,6 +5,7 @@ import egovframework.sample.service.SampleVO;
 import egovframework.sample.service.TestVo;
 import egovframework.sample.vo.BikeReservePlaceVO;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class ReserveController {
 	
 	@Resource(name="sampleService")
 	private SampleService sampleService; //서비스
+
+	@Value("#{config['naver.map.key']}")
+	private String mapKey;
 
 	@RequestMapping(value="/insert.do",method = RequestMethod.GET)
 	public String insertSampleView(SampleVO vo) throws Exception{
@@ -65,15 +69,18 @@ public class ReserveController {
 	        return "";
 	    }
 
-	 @RequestMapping(value="/reserveHome.do", method = {RequestMethod.GET, RequestMethod.POST}) //대여소 위치확인 페이지이동
-		public String reservPage(Model model, ModelAndView mv) throws Exception {
-			
-			// model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
-			//mv.addObject("rentList", daojdbc.selectRent());
-			
-			return "reserveHome";
-			
-		}
+	@RequestMapping(value = "/reserveHome.do", method = {RequestMethod.GET, RequestMethod.POST}) //대여소 위치확인 페이지이동
+	public String reservPage(Model model, ModelAndView mv) throws Exception {
+
+		
+		// 기존 소스 주석 처리
+		// model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
+		//mv.addObject("rentList", daojdbc.selectRent());
+		
+		model.addAttribute("mapKey", mapKey);
+		return "reserveHome";
+
+	}
 	 
 	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색 
 	@ResponseBody

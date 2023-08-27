@@ -10,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>대여소지도</title>
 
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=bazkpg4jtl"></script> <!-- 네이버지도api설정  -->
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${mapKey}"></script> <!-- 네이버지도api설정  -->
     <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/service/rent.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/public/map.js"></script>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/service/rent/rent.css" /> <!-- css 파일 -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/custom/rent.css" /> <!-- css 파일 -->
 
 </head>                             
 <body>
