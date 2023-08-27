@@ -23,11 +23,16 @@ INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(9,11,true);
 INSERT INTO bike(bike_id,bike_reserve_place_id,bike_status) values(10,11,true);
 
 select MIN(bike_id) from bike where bike_reserve_place_id = 11 AND bike_status = TRUE;
+desc reservation;
 
-
+select * from reservation;
 select * from bike;
 
 SELECT COUNT(*) AS count_available_reserve FROM bike WHERE bike_reserve_place_id = 11 AND bike_status = TRUE;
 
 insert into user values('tkj','KIM','123',01088711061); 
 
+alter table reservation modify column period time;
+delete from reservation;
+
+insert into reservation(user_id, bike_id, period) values('tkj',7,'01:00:00');

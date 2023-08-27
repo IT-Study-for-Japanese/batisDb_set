@@ -106,6 +106,14 @@ $(".reserve-go").click(function () {
 });
 });
 
+$(document).ready(function () {
+    $(".reserve-button").click(function () {
+    	alert("예약버튼클릭");
+        var reservePlaceIdInform = $(this).closest("tr").find("td:eq(2)").text();
+        $("#reservePlaceIdInform").val(reservePlaceIdInform); // reservePlaceId 값을 숨겨진 필드에 설정
+    });
+});
+
 
 
 </script>
@@ -120,7 +128,7 @@ $(".reserve-go").click(function () {
 				<input name="reservePlaceName" class="search-input" type="text"><input
 					class="search-button" type="button" value="검색">
 		</form>
-
+	
  	<table><!-- 목록창 -->
         <thead>
             <tr>
@@ -132,6 +140,7 @@ $(".reserve-go").click(function () {
         </thead>
 	
 	<tbody>
+
         <c:forEach items="${rentList}" var="res"> <!--  -->
 				<tr>
 					<td>${res.reservePlaceName}</td>
@@ -142,25 +151,28 @@ $(".reserve-go").click(function () {
 		</c:forEach>
 
         </tbody>
+        
     </table>
 
 	</div>
-
+	<form id="reserveForm" action="testReserve.do" method="POST">
 	<div id="myModal" class="modal">
 	  	<div class="modal-content">
 		    <span class="close">&times;</span>
 		    <!-- 팝업 내용을 추가하세요 -->
 		    <h2>예약 하기</h2>
+		    <input type="hidden" id="reservePlaceIdInform" name="bikeReservePlaceId"><!-- 선택한 대여소id -->
 		    <!-- 예약에 관한 내용을 표시할 부분 -->
-			<select class="selectTime">
+			<select class="selectTime" name="period">
 				<option value="01:00:00">1시간</option>
 				<option value="02:00:00">2시간</option>
 				<option value="03:00:00">3시간</option>
 			</select>
-		    <button class="reserve-go">예약하기</button>
+		    <button type="submit" class="reserve-go">예약하기</button>
+	
   		</div>
 	</div>
-
+	</form>
 <script>
 
 var rentList2 = '${rentList}';
