@@ -99,3 +99,7 @@ settings.json
 pom.properties
 .classpath
 .projects
+
+target/*
+META-INF/*
+.springBeans
