@@ -1,15 +1,11 @@
 package egovframework.sample.web;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import egovframework.sample.service.SampleService;
 import egovframework.sample.vo.BikeVO;
-import egovframework.sample.vo.BikeReservePlaceVO;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
 
 @Controller
 public class TestController {

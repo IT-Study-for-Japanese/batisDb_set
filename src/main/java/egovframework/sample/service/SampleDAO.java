@@ -1,9 +1,9 @@
 package egovframework.sample.service;
 
-import java.util.List;
-
-import egovframework.sample.vo.BikeVO;
 import egovframework.sample.vo.BikeReservePlaceVO;
+import egovframework.sample.vo.BikeVO;
+
+import java.util.List;
 
 public interface SampleDAO {
 	

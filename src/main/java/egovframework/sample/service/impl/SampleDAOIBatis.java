@@ -1,15 +1,13 @@
 package egovframework.sample.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
-import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleVO;
-import egovframework.sample.vo.BikeVO;
 import egovframework.sample.vo.BikeReservePlaceVO;
+import egovframework.sample.vo.BikeVO;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("daoIBatis")
 public class SampleDAOIBatis extends EgovAbstractMapper implements SampleDAO{
