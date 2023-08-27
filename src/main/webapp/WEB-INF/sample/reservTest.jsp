@@ -79,7 +79,7 @@ $(document).ready(function () {
 $(".reserve-go").click(function () {
 	
 	var selectTime = $("selectTime").val();
-	var reservePlaceId = $(this).closest("tr").find("td:eq(2)").text();
+	var reservePlaceId = $(this).closest("tr").find("td:eq(2)").serializeArray();
 	alert(reservePlaceId);
 	
 	

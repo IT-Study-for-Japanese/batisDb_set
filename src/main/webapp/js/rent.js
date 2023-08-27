@@ -9,7 +9,7 @@ $(document).ready(function () {
         $.each(formDataArray, function(i, item) {
             formDataObject[item.name] = item.value;
         });
-		alert(formDataObject);
+		alert(formDataArray);
         $.ajax({
             url: "search.do",// 서버에서 데이터를 가져올 URL
             type: "POST",
