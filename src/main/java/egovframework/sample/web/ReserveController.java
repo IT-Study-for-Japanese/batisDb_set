@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -20,7 +21,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-@Controller 
+@Controller
+@EnableWebMvc
 public class ReserveController {
 	
 	@Resource(name="sampleService")
@@ -81,8 +83,8 @@ public class ReserveController {
 		return "reserveHome";
 
 	}
-	 
-	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색 
+
+	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색
 	@ResponseBody
 	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent ,Model model) throws SQLException {
 		System.out.println("컨트롤러확인1");
@@ -100,7 +102,6 @@ public class ReserveController {
 		            .body(e.getMessage());
 		}
 			
-		return result; 
-			
-		}
+		return result;
 	}
+}
