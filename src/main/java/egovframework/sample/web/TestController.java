@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class TestController {
 		BikeVO bike = new BikeVO(); // 테스트용 객체
 		bike.setBikeReservePlaceId(11);
 		bike.setBikeStatus(true);
-
+		
 		int result = sampleService.selectBikeCount(bike); // 이용가능 자전거수
-
+		
 		System.out.println("카운트 값확인" + result);
-
+		
 		return "test";
-
+		
 	}
 
 	@RequestMapping(value = "/testReserve.do", method = RequestMethod.POST) // 예약 처리 테스트
@@ -131,8 +132,21 @@ public class TestController {
 
 	@RequestMapping(value = "/reserveTest.do", method = { RequestMethod.GET, RequestMethod.POST }) // 대여소 위치확인 페이지이동
 	public String reservPage(Model model, ModelAndView mv) throws Exception {
-
-		model.addAttribute("rentList", sampleService.selectBikePlace()); // 대여소 리스트 모델 등록
+		
+		List<BikeReservePlaceVO> placelist = sampleService.selectBikePlace(); //자전거 전체 대여소 리스트
+		BikeReservePlaceVO br = new BikeReservePlaceVO();
+		for(BikeReservePlaceVO list:placelist) {
+			
+			BikeVO bike = new BikeVO();
+			bike.setBikeReservePlaceId(list.getReservePlaceId());
+			bike.setBikeStatus(true);
+			br.setCount(sampleService.selectBikeCount(bike)); 
+			
+			list.setCount(sampleService.selectBikeCount(bike));
+			System.out.println("확인"+list.getCount());
+		}
+		
+		model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
 		// mv.addObject("rentList", daojdbc.selectRent());
 
 		return "reservTest";

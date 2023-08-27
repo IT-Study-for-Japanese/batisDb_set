@@ -34,5 +34,6 @@ insert into user values('tkj','KIM','123',01088711061);
 
 alter table reservation modify column period time;
 delete from reservation;
+delete from bike;
 
 insert into reservation(user_id, bike_id, period) values('tkj',7,'01:00:00');

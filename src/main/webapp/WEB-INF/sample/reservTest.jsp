@@ -145,7 +145,7 @@ $(document).ready(function () {
 				<tr>
 					<td>${res.reservePlaceName}</td>
 					<td>${res.reservePlaceAddr}</td><td style="display:none">${res.reservePlaceId}</td>
-					<td>카운트 구현필요</td>
+					<td>${res.count}</td>
 					<td><button class="reserve-button">예약</button></td>
 				</tr>
 		</c:forEach>
