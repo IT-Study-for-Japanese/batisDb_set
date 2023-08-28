@@ -31,7 +31,7 @@ public class SampleServiceImpl  implements SampleService {
 	}
 	
 	@Override
-	public List<BikeReservePlaceVO> selectSearchBikePlace(String reservePlaceName) { //대여소검색리스트
+	public List<BikeReservePlaceVO> selectSearchBikePlace(BikeReservePlaceVO reservePlaceName) { //대여소검색리스트
 		
 		return sampleDAO.selectSearchBikePlace(reservePlaceName);
 	}

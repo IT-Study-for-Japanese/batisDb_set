@@ -26,9 +26,9 @@ public class SampleDAOIBatis extends EgovAbstractMapper implements SampleDAO{
 	}
 
 	@Override
-	public List<BikeReservePlaceVO> selectSearchBikePlace(String reservePlaceName) { //대여소검색리스트
+	public List<BikeReservePlaceVO> selectSearchBikePlace(BikeReservePlaceVO search) { //대여소검색리스트
 		
-		return selectList("selectSearchBikePlace");
+		return selectList("selectSearchBikePlace", search);
 	}
 
 	@Override

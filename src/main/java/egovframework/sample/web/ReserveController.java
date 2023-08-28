@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -78,19 +79,25 @@ public class ReserveController {
 
 		
 		List<BikeReservePlaceVO> placelist = sampleService.selectBikePlace(); //자전거 전체 대여소 리스트
-		BikeReservePlaceVO br = new BikeReservePlaceVO();
-		for(BikeReservePlaceVO list:placelist) {
-			
-			BikeVO bike = new BikeVO();
-			bike.setBikeReservePlaceId(list.getReservePlaceId());
-			bike.setBikeStatus(true);
-			br.setCount(sampleService.selectBikeCount(bike)); 
-			
-			list.setCount(sampleService.selectBikeCount(bike));
-			System.out.println("확인"+list.getCount());
-		}
 		
-		model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
+		
+		boolean hasData = placelist.stream().filter(i -> Objects.nonNull(i)).findAny().isPresent();
+		
+		if(hasData) {
+			BikeReservePlaceVO br = new BikeReservePlaceVO();
+			for(BikeReservePlaceVO list:placelist) {
+				
+				BikeVO bike = new BikeVO();
+				bike.setBikeReservePlaceId(list.getReservePlaceId());
+				bike.setBikeStatus(true);
+				br.setCount(sampleService.selectBikeCount(bike)); 
+				
+				list.setCount(sampleService.selectBikeCount(bike));
+				System.out.println("확인"+list.getCount());
+			}
+			
+			model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
+		}
 		
 		model.addAttribute("mapKey", mapKey);
 		return "reserveHome";
@@ -99,13 +106,13 @@ public class ReserveController {
 
 	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색
 	@ResponseBody
-	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent ,Model model) throws SQLException {
+	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO search ,Model model) throws SQLException {
 
 		ResponseEntity result = null;
 			
 		try {
 			
-		    List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent.getReservePlaceName());
+		    List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(search);
 		    result = ResponseEntity.ok().body(list);
 
 		} catch (Exception e) {

@@ -7,6 +7,12 @@
 		<result property="name" column="name"/>
 	</resultMap>
 
+	<resultMap type="BikeReservePlace" id="BikeReservePlace">
+		<result property="reservePlaceId" column="bike_reserve_place_id"/>
+		<result property="reservePlaceName" column="bike_reserve_place_name"/>
+		<result property="reservePlaceAddr" column="bike_reserve_place_addr"/>
+	</resultMap>
+
 	<insert id="insertSample" >
 		insert into test(id, name) values(
 		#{id},
@@ -17,10 +23,10 @@
 		select * from bike_reserve_place
 	</select>
 	
-	<select id="selectSearchBikePlace" resultMap="BikeReservePlace"> <!-- 검색한 대여소 리스트 -->
-		SELECT * FROM bike_reserve_place 
-		WHERE bike_reserve_place_addr LIKE '%'#{reservePlaceName}'%' OR 
-		bike_reserve_place_name LIKE '%'#{reservePlaceName}'%'
+	<select id="selectSearchBikePlace" parameterType="BikeReservePlace" resultMap="BikeReservePlace">
+	    SELECT * FROM bike_reserve_place 
+	    WHERE bike_reserve_place_addr LIKE CONCAT('%', #{reservePlaceName}, '%') OR 
+	          bike_reserve_place_name LIKE CONCAT('%', #{reservePlaceName}, '%')
 	</select>
 	
 	<select id="selectBikeCount" resultType="int"> <!-- 대여가능 자전거 수 -->
