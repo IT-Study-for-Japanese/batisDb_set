@@ -157,7 +157,7 @@ public class TestController {
 
 		try {
 
-			List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent.getReservePlaceName());
+			List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent);
 			result = ResponseEntity.ok().body(list);
 
 		} catch (Exception e) {

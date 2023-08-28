@@ -28,11 +28,6 @@ function eventHandler() {
         });
     });
 
-    $(".reserve-button").click(function () {
-        // 팝업 열기
-        $("#myModal").css("display", "block");
-    });
-
     // 모달 팝업 닫기
     $(".close").click(function () {
         // 팝업 닫기
@@ -62,4 +57,8 @@ function updateTable(data) {
             tbody.append(row);
         }
     );
+}
+
+function reservePopup() {
+	$("#myModal").css("display", "block");
 }

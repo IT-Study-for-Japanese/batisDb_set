@@ -13,10 +13,8 @@
 <script type="text/javascript"
 	src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ug0avytojj"></script>
 <!-- 네이버지도api설정  -->
-<script
-	src="${pageContext.request.contextPath}/js/jquery/jquery-3.7.0.min.js"></script>
-<!-- jquery 3.7버전 -->
-<script src="${pageContext.request.contextPath}/js/rent.js"></script>
+   <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/service/rent.js"></script>
 <!-- jquery 파일 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/rent.css" />
@@ -57,79 +55,6 @@
 }
 </style>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		$(".reserve-button").click(function() {
-			// 팝업 열기
-			$("#myModal").css("display", "block");
-		});
-
-		/* $(document).on("click",".reserve-button",function () {
-		 // 팝업 열기
-		 $("#myModal").css("display", "block");
-		 }); */
-
-		// 모달 팝업 닫기
-		$(".close").click(function() {
-			// 팝업 닫기
-			$("#myModal").css("display", "none");
-
-		});
-
-		// 모달 외부 클릭 시 팝업 닫기
-		$(window).click(function(e) {
-			if (e.target == $("#myModal")[0]) {
-				// 팝업 닫기
-				$("#myModal").css("display", "none");
-			}
-		});
-	});
-
-	$(document).ready(
-			function() {
-				$(".reserve-go").click(
-						function() {
-
-							var selectTime = $("selectTime").val();
-							var reservePlaceId = $(this).closest("tr").find(
-									"td:eq(2)").serializeArray();
-							alert(reservePlaceId);
-
-							/* var formDataArray = $("#form2").serializeArray();
-							var formDataObject = {};
-							 */
-							/*  $.each(formDataArray, function(i, item) {
-							     formDataObject[item.name] = item.value;
-							 }); */
-							alert(formDataObject);
-							$.ajax({
-								url : "searchTest.do",// 서버에서 데이터를 가져올 URL
-								type : "POST",
-								contentType : "application/json",
-								data : JSON.stringify(selectTime), // 화 다.
-								success : function(response) {
-									updateTable(response);
-								},
-								error : function(e) {
-									console.error(e);
-								}
-							});
-						});
-			});
-
-	$(document).ready(
-			function() {
-				$(".reserve-button").click(
-						function() {
-							alert("예약버튼클릭");
-							var reservePlaceIdInform = $(this).closest("tr")
-									.find("td:eq(2)").text();
-							$("#reservePlaceIdInform")
-									.val(reservePlaceIdInform); // reservePlaceId 값을 숨겨진 필드에 설정
-						});
-			});
-</script>
 
 </head>
 <body>
@@ -279,7 +204,7 @@
 										+ '</h4>',
 								'   <p>대여가능대수  : ' + rentList2[index].count
 										+ ' <br />', '   </p>',
-								'<button class="reserve-button">대여하기</button>',
+								'<button class="reserve-button" onclick="reservePopup()">대여하기</button>',
 								'</div>' ].join('');
 
 						infowindow.setContent(contentString);

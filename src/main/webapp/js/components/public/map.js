@@ -83,7 +83,7 @@ function initialize() {
                         '   <h4>대여소명 : ' + rentList2[index].reservePlaceName + '</h4>',
                         '   <p>대여가능대수  : 10(카운트구현필요) <br />',
                         '   </p>',
-                        '<button>대여하기</button>',
+                        '<button onclick="onclick="reservePopup()"">대여하기</button>',
                         '</div>'
                     ].join('');
 
