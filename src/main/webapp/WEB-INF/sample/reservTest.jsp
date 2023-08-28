@@ -13,12 +13,44 @@
 <script type="text/javascript"
 	src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ug0avytojj"></script>
 <!-- 네이버지도api설정  -->
-   <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/service/rent.js"></script>
 <!-- jquery 파일 -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/rent.css" />
+	href="${pageContext.request.contextPath}/css/custom/rent.css" />
 <!-- css 파일 -->
+
+<script>
+
+	$(document).ready(function() {
+    $(".reserve-go").click(function () {
+		
+        var formDataArray = $("#reserveForm").serializeArray();
+        var formDataObject = {};
+		
+        $.each(formDataArray, function(i, item) {
+            formDataObject[item.name] = item.value;
+        });
+        alert(formDataObject);
+        $.ajax({
+            url: "reserveAjaxTest.do",// 서버에서 데이터를 가져올 URL
+            type: "POST",
+            contentType :"application/json",
+            data: JSON.stringify(formDataObject),   // 화 다.
+            success: function (response) {
+                alert("예약 완료되었습니다.");
+                location.reload();
+            },
+            error: function (e) {
+                console.error(e);
+            }
+        });
+    
+    });
+
+});
+	
+</script>
 
 <style>
 .modal {
@@ -94,10 +126,9 @@
 								</c:when>
 
 								<c:otherwise>
-									<button class="reserve-button">예약</button>
+									<button class="reserve-button" onclick="reservePopup()">예약</button>
 								</c:otherwise>
 							</c:choose></td>
-
 
 					</tr>
 				</c:forEach>
@@ -107,7 +138,7 @@
 		</table>
 
 	</div>
-	<form id="reserveForm" action="testReserve.do" method="POST">
+	<form id="reserveForm">
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
@@ -117,19 +148,18 @@
 					name="bikeReservePlaceId">
 				<!-- 선택한 대여소id -->
 				<!-- 예약에 관한 내용을 표시할 부분 -->
-				<select class="selectTime" name="period">
+				<select class="selectTime" name="textPeriod">
 					<option value="01:00:00">1시간</option>
 					<option value="02:00:00">2시간</option>
 					<option value="03:00:00">3시간</option>
 				</select>
-				<button type="submit" class="reserve-go">예약하기</button>
+				<input class="reserve-go" type="button" value="예약하기">
 			</div>
 		</div>
 	</form>
 
-
-
 	<script>
+	
 		/* var rentList2 = JSON.parse('${rentList}'); */
 		var rentList = JSON.parse('${jsonPlacelist}');
 

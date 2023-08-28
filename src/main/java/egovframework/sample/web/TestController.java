@@ -36,15 +36,77 @@ public class TestController {
 		BikeVO bike = new BikeVO(); // 테스트용 객체
 		bike.setBikeReservePlaceId(11);
 		bike.setBikeStatus(true);
-		
+
 		int result = sampleService.selectBikeCount(bike); // 이용가능 자전거수
-		
+
 		System.out.println("카운트 값확인" + result);
-		
+
 		return "test";
+
+	}
+	
+	@RequestMapping(value="/reserveAjaxTest.do",method = RequestMethod.POST) // Ajax 예약처리 확인
+	@ResponseBody
+	public ResponseEntity reserveAjaxTest(@RequestBody ReservationVO reserve ,Model model) throws SQLException {
+
+		
+		System.out.println("컨트롤러 확인" + reserve.getTextPeriod());
+		BikeVO bike = new BikeVO(); // 테스트용 객체
+		
+		
+		bike.setBikeReservePlaceId(reserve.getBikeReservePlaceId()); //대여소번호 대입
+		bike.setBikeStatus(true); //가능여부 대입
+		System.out.println("컨트롤러 확인" + reserve.getBikeReservePlaceId());
+		
+		int bike_id = sampleService.selectBikeId(bike); // 예약될 자전거번호
+		
+		System.out.println("자전거번호확인" + bike_id);
+		
+		Date currentDate = new Date(); // 변환할시간객체
+
+		ReservationVO rv = new ReservationVO(); // 예약VO 객체
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); // 00:00:00 형태로 변환
+		Time sqlTime = null; // 선택한시간 Date타입으로 변환
+
+		try {
+
+			Date parseDate = sdf.parse(reserve.getTextPeriod());
+
+			sqlTime = new Time(parseDate.getTime());
+
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+
+		}
+		System.out.println("시간변환" + sqlTime);
+		
+		rv.setUserId("tkj");// 유저id (jsp에서 받아오기) 합칠때 session에서 가져오기
+		rv.setBikeId(bike_id); // 자전거id
+		rv.setStartTime(new Date(currentDate.getTime())); // 현재시간
+		rv.setPeriod(sqlTime); // 이용시간 (jsp에서 받아오기)
+		
+		int result = sampleService.insertReservation(rv);
+
+		if (result >= 1) { // 예약성공시
+
+			System.out.println("예약정보입력 성공");
+			int result2 = sampleService.changeStatus(bike_id);
+
+			if (result2 >= 1) {
+
+				System.out.println("예약상태변경성공");
+
+			}
+
+		}
+
+		
+		return null;
 		
 	}
-
+	
 	@RequestMapping(value = "/testReserve.do", method = RequestMethod.POST) // 예약 처리 테스트
 	public String test2(String bikeReservePlaceId, String period) {
 
@@ -58,27 +120,24 @@ public class TestController {
 
 		System.out.println("카운트 값확인" + bike_id);
 
-		
-		 Date currentDate = new Date(); //변환할시간객체
-		  
-		 ReservationVO rv = new ReservationVO(); //예약VO 객체
-		 
-		 
-		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); //00:00:00 형태로 변환
-		 Time sqlTime = null; //선택한시간 Date타입으로 변환
-		 
-		 try {
-		 
-		 Date parseDate = sdf.parse(period);
-		 
-		 sqlTime = new Time(parseDate.getTime());
-		  
-		 } catch (ParseException e) {
-		 
-		 e.printStackTrace();
-		 
-		 }
-		
+		Date currentDate = new Date(); // 변환할시간객체
+
+		ReservationVO rv = new ReservationVO(); // 예약VO 객체
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); // 00:00:00 형태로 변환
+		Time sqlTime = null; // 선택한시간 Date타입으로 변환
+
+		try {
+
+			Date parseDate = sdf.parse(period);
+
+			sqlTime = new Time(parseDate.getTime());
+
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+
+		}
 
 //		  Date currentDate = new Date();
 //		  
@@ -128,35 +187,107 @@ public class TestController {
 
 	}
 
+	/*
+	 * @RequestMapping(value = "/testReserve.do", method = RequestMethod.POST) // 예약
+	 * 처리 테스트 public String test2(String bikeReservePlaceId, String period) {
+	 * 
+	 * BikeVO bike = new BikeVO(); // 테스트용 객체 int bikeReservePlaceIdInt =
+	 * Integer.parseInt(bikeReservePlaceId); System.out.println("int로 변환한 대여소번호 " +
+	 * bikeReservePlaceIdInt); bike.setBikeReservePlaceId(bikeReservePlaceIdInt);
+	 * bike.setBikeStatus(true);
+	 * 
+	 * int bike_id = sampleService.selectBikeId(bike); // 예약될 자전거번호
+	 * 
+	 * System.out.println("카운트 값확인" + bike_id);
+	 * 
+	 * 
+	 * Date currentDate = new Date(); //변환할시간객체
+	 * 
+	 * ReservationVO rv = new ReservationVO(); //예약VO 객체
+	 * 
+	 * 
+	 * SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); //00:00:00 형태로 변환
+	 * Time sqlTime = null; //선택한시간 Date타입으로 변환
+	 * 
+	 * try {
+	 * 
+	 * Date parseDate = sdf.parse(period);
+	 * 
+	 * sqlTime = new Time(parseDate.getTime());
+	 * 
+	 * } catch (ParseException e) {
+	 * 
+	 * e.printStackTrace();
+	 * 
+	 * }
+	 * 
+	 * 
+	 * // Date currentDate = new Date(); // // ReservationVO rv = new
+	 * ReservationVO(); // // SimpleDateFormat sdf = new
+	 * SimpleDateFormat("HH:mm:ss"); Timestamp sqlTime = // null; //선택한시간 Date타입으로
+	 * 변환 // // try { // // Date parseDate = sdf.parse(period);//선택되온 시간 (테스트용) //
+	 * // sqlTime = new Timestamp(parseDate.getTime()); // // } catch
+	 * (ParseException e) { // // e.printStackTrace(); // // }
+	 * 
+	 * System.out.println("시간변환" + sqlTime);
+	 * 
+	 * rv.setUserId("tkj");// 유저id (jsp에서 받아오기) 합칠때 session에서 가져오기
+	 * rv.setBikeId(bike_id); // 자전거id rv.setStartTime(new
+	 * Date(currentDate.getTime())); // 현재시간 rv.setPeriod(sqlTime); // 이용시간 (jsp에서
+	 * 받아오기)
+	 * 
+	 * int result = sampleService.insertReservation(rv);
+	 * 
+	 * if (result >= 1) { // 예약성공시
+	 * 
+	 * System.out.println("예약정보입력 성공"); int result2 =
+	 * sampleService.changeStatus(bike_id);
+	 * 
+	 * if (result2 >= 1) {
+	 * 
+	 * System.out.println("예약상태변경성공");
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * 
+	 * rv.setUserId(userId); rv.setPeriod(period); rv.set
+	 * 
+	 * return "forward:reserveTest.do";
+	 * 
+	 * }
+	 */
+
 	@RequestMapping(value = "/reserveTest.do", method = { RequestMethod.GET, RequestMethod.POST }) // 대여소 위치확인 페이지이동
 	public String reservPage(Model model, ModelAndView mv) throws Exception {
-		
-		List<BikeReservePlaceVO> placelist = sampleService.selectBikePlace(); //자전거 전체 대여소 리스트
+
+		List<BikeReservePlaceVO> placeList = sampleService.selectBikePlace(); // 자전거 전체 대여소 리스트
 		BikeReservePlaceVO br = new BikeReservePlaceVO();
-		for(BikeReservePlaceVO list:placelist) {
-			
+		for (BikeReservePlaceVO list : placeList) {
+
 			BikeVO bike = new BikeVO();
 			bike.setBikeReservePlaceId(list.getReservePlaceId());
 			bike.setBikeStatus(true);
-			br.setCount(sampleService.selectBikeCount(bike)); 
-			
+			br.setCount(sampleService.selectBikeCount(bike));
+
 			list.setCount(sampleService.selectBikeCount(bike));
-			System.out.println("확인"+list.getCount());
+			System.out.println("확인" + list.getCount());
 		}
 		
-		model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
+		model.addAttribute("rentList", placeList); // 대여소 리스트 모델 등록
+
+		// 리스트를 JSON 문자열로 변환
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonPlacelist = mapper.writeValueAsString(placeList);
 		
-	    // 리스트를 JSON 문자열로 변환
-	    ObjectMapper mapper = new ObjectMapper();
-	    String jsonPlacelist = mapper.writeValueAsString(placelist);
-	    
-	    model.addAttribute("jsonPlacelist", jsonPlacelist); // 대여소 리스트 모델 등록
+		model.addAttribute("jsonPlacelist", jsonPlacelist); // 지도표시 리스트 모델 등록
 		// mv.addObject("rentList", daojdbc.selectRent());
-
+		
 		return "reservTest";
-
+		
 	}
-
+	
 	@RequestMapping(value = "/searchTest.do", method = RequestMethod.POST) // 리스트 검색
 	@ResponseBody
 	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent, Model model) throws SQLException {
@@ -166,6 +297,19 @@ public class TestController {
 		try {
 
 			List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(testRent);
+			
+			for (BikeReservePlaceVO list2 : list) {
+
+				BikeVO bike = new BikeVO();
+				bike.setBikeReservePlaceId(list2.getReservePlaceId());
+				bike.setBikeStatus(true);
+				
+
+				list2.setCount(sampleService.selectBikeCount(bike));
+				System.out.println("검색확인" + list2.getCount());
+			}
+			
+			
 			result = ResponseEntity.ok().body(list);
 
 		} catch (Exception e) {

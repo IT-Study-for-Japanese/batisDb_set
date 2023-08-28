@@ -107,13 +107,25 @@ public class ReserveController {
 	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색
 	@ResponseBody
 	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO search ,Model model) throws SQLException {
-
+		
 		ResponseEntity result = null;
 			
 		try {
+			List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(search);
 			
-		    List<BikeReservePlaceVO> list = sampleService.selectSearchBikePlace(search);
-		    result = ResponseEntity.ok().body(list);
+			for (BikeReservePlaceVO list2 : list) {
+
+				BikeVO bike = new BikeVO();
+				bike.setBikeReservePlaceId(list2.getReservePlaceId());
+				bike.setBikeStatus(true);
+				
+
+				list2.setCount(sampleService.selectBikeCount(bike));
+				System.out.println("검색확인" + list2.getCount());
+			}
+			
+			
+			result = ResponseEntity.ok().body(list);
 
 		} catch (Exception e) {
 				

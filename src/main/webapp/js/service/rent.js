@@ -53,7 +53,23 @@ function updateTable(data) {
             var row = $("<tr>");
             row.append($("<td>").text(rent.reservePlaceName));
             row.append($("<td>").text(rent.reservePlaceAddr));
-            row.append($("<td>").text("카운트 구현필요"));
+            row.append($("<td>").text(rent.count));
+            if (rent.count > 0) {
+            var reserveButton = $("<button>")
+                .text("예약")
+                .addClass("reserve-button")
+                .click(function () {
+                    // 예약 버튼 클릭 시 동작 추가
+                    alert("예약 버튼 클릭");
+                });
+            row.append($("<td>").append(reserveButton));
+        } else {
+            var disabledButton = $("<button>")
+                .text("예약불가")
+                .addClass("reserve-button-disabled")
+                .prop("disabled", true); // 버튼 비활성화 처리
+            row.append($("<td>").append(disabledButton));
+        }
             tbody.append(row);
         }
     );
@@ -62,3 +78,13 @@ function updateTable(data) {
 function reservePopup() {
 	$("#myModal").css("display", "block");
 }
+$(document).ready(function () {
+    $(".reserve-button").click(function () {
+    	
+        var reservePlaceIdInform = $(this).closest("tr").find("td:eq(2)").text();
+        $("#reservePlaceIdInform").val(reservePlaceIdInform); // reservePlaceId 값을 숨겨진 필드에 설정
+    });
+});
+
+
+
