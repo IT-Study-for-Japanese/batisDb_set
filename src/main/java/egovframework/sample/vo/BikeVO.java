@@ -2,27 +2,27 @@ package egovframework.sample.vo;
 
 public class BikeVO {
 	
-	private int bike_id;
-	private int bike_reserve_place_id;
-	private	boolean bike_status;
-	public int getBike_id() {
-		return bike_id;
-	}
-	public void setBike_id(int bike_id) {
-		this.bike_id = bike_id;
-	}
-	public int getBike_reserve_place_id() {
-		return bike_reserve_place_id;
-	}
-	public void setBike_reserve_place_id(int bike_reserve_place_id) {
-		this.bike_reserve_place_id = bike_reserve_place_id;
-	}
-	public boolean isBike_status() {
-		return bike_status;
-	}
-	public void setBike_status(boolean bike_status) {
-		this.bike_status = bike_status;
-	}
+	private int bikeId; //자전거 ID
+	private int bikeReservePlaceId; // 자전거대여소 ID
+	private	boolean bikeStatus; //자전거 대여가능여부 True면 가능, False는 불가능
 	
-	
+	public int getBikeId() {
+		return bikeId;
+	}
+	public void setBikeId(int bikeId) {
+		this.bikeId = bikeId;
+	}
+	public int getBikeReservePlaceId() {
+		return bikeReservePlaceId;
+	}
+	public void setBikeReservePlaceId(int bikeReservePlaceId) {
+		this.bikeReservePlaceId = bikeReservePlaceId;
+	}
+	public boolean isBikeStatus() {
+		return bikeStatus;
+	}
+	public void setBikeStatus(boolean bikeStatus) {
+		this.bikeStatus = bikeStatus;
+	}
+
 }

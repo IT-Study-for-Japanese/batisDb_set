@@ -5,7 +5,14 @@ public class BikeReservePlaceVO {
 	private int reservePlaceId; //장소고유번호
 	private String reservePlaceName; //장소명
 	private String reservePlaceAddr; //주소
+	private int count; //대여가능 자전거수 
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getReservePlaceId() {
 		return reservePlaceId;
 	}
