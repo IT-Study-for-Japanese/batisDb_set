@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -143,6 +145,12 @@ public class TestController {
 		}
 		
 		model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
+		
+	    // 리스트를 JSON 문자열로 변환
+	    ObjectMapper mapper = new ObjectMapper();
+	    String jsonPlacelist = mapper.writeValueAsString(placelist);
+	    
+	    model.addAttribute("jsonPlacelist", jsonPlacelist); // 대여소 리스트 모델 등록
 		// mv.addObject("rentList", daojdbc.selectRent());
 
 		return "reservTest";

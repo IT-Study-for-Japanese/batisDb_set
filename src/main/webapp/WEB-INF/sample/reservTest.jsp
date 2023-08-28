@@ -131,7 +131,7 @@
 
 	<script>
 		/* var rentList2 = JSON.parse('${rentList}'); */
-		var rentList2 = '${rentList}';
+		var rentList = JSON.parse('${jsonPlacelist}');
 
 		var HOME_PATH = window.HOME_PATH || '.'; //이벤트 실행 요소?
 		var map = new naver.maps.Map('map', { //맵 위도, 경도 및 크기설정
@@ -200,9 +200,9 @@
 						contentString = [
 								'<div class="iw_inner">',
 								'   <h4>대여소명 : '
-										+ rentList2[index].reservePlaceName
+										+ rentList[index].reservePlaceName
 										+ '</h4>',
-								'   <p>대여가능대수  : ' + rentList2[index].count
+								'   <p>대여가능대수  : ' + rentList[index].count
 										+ ' <br />', '   </p>',
 								'<button class="reserve-button" onclick="reservePopup()">대여하기</button>',
 								'</div>' ].join('');
