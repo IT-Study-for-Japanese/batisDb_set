@@ -4,6 +4,8 @@ import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
 import egovframework.sample.service.TestVo;
 import egovframework.sample.vo.BikeReservePlaceVO;
+import egovframework.sample.vo.BikeVO;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -75,9 +77,20 @@ public class ReserveController {
 	public String reservPage(Model model, ModelAndView mv) throws Exception {
 
 		
-		// 기존 소스 주석 처리
-		// model.addAttribute("rentList",sampleService.selectBikePlace()); //대여소 리스트 모델 등록
-		//mv.addObject("rentList", daojdbc.selectRent());
+		List<BikeReservePlaceVO> placelist = sampleService.selectBikePlace(); //자전거 전체 대여소 리스트
+		BikeReservePlaceVO br = new BikeReservePlaceVO();
+		for(BikeReservePlaceVO list:placelist) {
+			
+			BikeVO bike = new BikeVO();
+			bike.setBikeReservePlaceId(list.getReservePlaceId());
+			bike.setBikeStatus(true);
+			br.setCount(sampleService.selectBikeCount(bike)); 
+			
+			list.setCount(sampleService.selectBikeCount(bike));
+			System.out.println("확인"+list.getCount());
+		}
+		
+		model.addAttribute("rentList", placelist); // 대여소 리스트 모델 등록
 		
 		model.addAttribute("mapKey", mapKey);
 		return "reserveHome";
@@ -87,7 +100,7 @@ public class ReserveController {
 	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색
 	@ResponseBody
 	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO testRent ,Model model) throws SQLException {
-		System.out.println("컨트롤러확인1");
+
 		ResponseEntity result = null;
 			
 		try {

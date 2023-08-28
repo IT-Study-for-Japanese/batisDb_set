@@ -6,13 +6,7 @@
 		<result property="id" column="id"/>
 		<result property="name" column="name"/>
 	</resultMap>
-	
-	<resultMap type="BikeReservePlace" id="BikeReservePlace">
-		<result property="reservePlaceId" column="bike_reserve_place_id"/>
-		<result property="reservePlaceName" column="bike_reserve_place_name"/>
-		<result property="reservePlaceAddr" column="bike_reserve_place_addr"/>
-	</resultMap>
-	
+
 	<insert id="insertSample" >
 		insert into test(id, name) values(
 		#{id},
