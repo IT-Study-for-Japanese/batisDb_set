@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.7.0.min.js"></script> <!-- jquery 3.7버전 -->
 	<script src="${pageContext.request.contextPath}/js/rent.js"></script> <!-- jquery 파일 -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rent.css" /> <!-- css 파일 -->
+	
 <style>
 .modal {
   display: none; /* 클릭전 안보이게한다 */
@@ -58,12 +59,20 @@ $(document).ready(function() {
 $(".reserve-button").click(function () {
   // 팝업 열기
   $("#myModal").css("display", "block");
-});
+}); 
+
+/* $(document).on("click",".reserve-button",function () {
+	  // 팝업 열기
+	  $("#myModal").css("display", "block");
+	}); */
+
 
 // 모달 팝업 닫기
 $(".close").click(function () {
   // 팝업 닫기
   $("#myModal").css("display", "none");
+ 
+  
 });
 
 // 모달 외부 클릭 시 팝업 닫기
@@ -146,7 +155,19 @@ $(document).ready(function () {
 					<td>${res.reservePlaceName}</td>
 					<td>${res.reservePlaceAddr}</td><td style="display:none">${res.reservePlaceId}</td>
 					<td>${res.count}</td>
-					<td><button class="reserve-button">예약</button></td>
+					<td>
+						<c:choose>
+							<c:when test="${res.count == 0}">
+								<button class="reserve-button-disabled" disabled>예약불가</button>
+							</c:when>
+						
+						 	<c:otherwise>
+								<button class="reserve-button">예약</button>
+							</c:otherwise>
+						</c:choose>
+					</td>	
+					
+					
 				</tr>
 		</c:forEach>
 
@@ -169,13 +190,17 @@ $(document).ready(function () {
 				<option value="03:00:00">3시간</option>
 			</select>
 		    <button type="submit" class="reserve-go">예약하기</button>
-	
   		</div>
 	</div>
 	</form>
+	
+
+	
 <script>
 
+/* var rentList2 = JSON.parse('${rentList}'); */
 var rentList2 = '${rentList}';
+
 
 var HOME_PATH = window.HOME_PATH || '.'; //이벤트 실행 요소?
 var map = new naver.maps.Map('map', { //맵 위도, 경도 및 크기설정
@@ -212,13 +237,7 @@ markerName.push("서부정류장역");
 markerName.push("어린이회관역");
 
 var contentString = [ // 마커 표시창 문구 
-    '<div class="iw_inner">',
-    '   <h4>대공원역대여소</h4>',
-    '   <p>대여가능대수  : 10 <br />',
-    '   </p>',
-    '<button>대여하기</button>',
     
-    '</div>'
 ].join(''); 
 
 var infowindow = new naver.maps.InfoWindow({ //정보표시창
@@ -247,9 +266,9 @@ for(let i=0; i<markers.length; i++){ //마커 띄우기
     		contentString = [ 
     		    '<div class="iw_inner">',
     		    '   <h4>대여소명 : ' + rentList2[index].reservePlaceName + '</h4>',
-    		    '   <p>대여가능대수  : 10(카운트구현필요) <br />',
+    		    '   <p>대여가능대수  : '+ rentList2[index].count +' <br />',
     		    '   </p>',
-    		    '<button>대여하기</button>',
+    		    '<button class="reserve-button">대여하기</button>',
     		    '</div>'
     		].join(''); 
     		
