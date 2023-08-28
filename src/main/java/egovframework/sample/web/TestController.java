@@ -1,16 +1,9 @@
 package egovframework.sample.web;
 
-import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import egovframework.sample.service.SampleService;
+import egovframework.sample.vo.BikeReservePlaceVO;
+import egovframework.sample.vo.BikeVO;
+import egovframework.sample.vo.ReservationVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import egovframework.sample.service.SampleService;
-import egovframework.sample.vo.BikeReservePlaceVO;
-import egovframework.sample.vo.BikeVO;
-import egovframework.sample.vo.ReservationVO;
+import javax.annotation.Resource;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TestController {

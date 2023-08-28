@@ -3,10 +3,9 @@ package egovframework.sample.service.impl;
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
-import egovframework.sample.vo.BikeVO;
-import egovframework.sample.vo.ReservationVO;
 import egovframework.sample.vo.BikeReservePlaceVO;
 import egovframework.sample.vo.BikeVO;
+import egovframework.sample.vo.ReservationVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
