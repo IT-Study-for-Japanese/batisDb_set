@@ -168,6 +168,7 @@
 			e.preventDefault();
 
 		    map.panTo(latlngArr[index]);
+		    map.setZoom(15);
 		});
 		
 		
