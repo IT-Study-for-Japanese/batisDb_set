@@ -186,7 +186,7 @@
 						    '   <h4>대여소명 : ' + rentList[index].reservePlaceName + '</h4>',
 						    '   <p>대여가능대수 : ' + rentList[index].count + ' <br />',
 						    '   <input type="hidden" class="reserve-place-id" value="' + rentList[index].reservePlaceId + '">', // 숨겨진 데이터 추가
-						    '   <button class="reserve-button-map" onclick="reservePopup()">대여하기</button>',
+						    '   <button class="reserve-button-map" onclick="reservePopup(this)">대여하기</button>',
 						    '</div>' // 대여 정보 컨테이너 닫기
 						].join('');
 						

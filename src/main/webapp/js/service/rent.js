@@ -114,16 +114,9 @@ function updateTable(data) { //검색 리스트 띄우기
         });
 }
 
-function reservePopup() { //예약 팝업창 띄우기
+function reservePopup(pop) { //예약 팝업창 띄우기
 	//$("#myModal").css("display", "block"); //효과없이 띄우기
+	$("#reservePlaceIdInform").val($(pop).prev().val());
 	$("#myModal").fadeIn(); //부드럽게 띄우기
 	
 }
-$(document).ready(function () { //예약정보 팝업창에 전달
-    $(".reserve-button").click(function () {
-    	
-        var reservePlaceIdInform = $(this).closest("tr").find("td:eq(2)").text();
-        $("#reservePlaceIdInform").val(reservePlaceIdInform); // reservePlaceId 값을 숨겨진 필드에 설정
-    });
-});
-
