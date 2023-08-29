@@ -2,7 +2,6 @@ package egovframework.sample.service.impl;
 
 import egovframework.sample.service.SampleDAO;
 import egovframework.sample.service.SampleService;
-import egovframework.sample.service.SampleVO;
 import egovframework.sample.vo.BikeReservePlaceVO;
 import egovframework.sample.vo.BikeVO;
 import egovframework.sample.vo.ReservationVO;
@@ -18,10 +17,6 @@ public class SampleServiceImpl  implements SampleService {
 	
 	public SampleServiceImpl() {
 		
-	}
-	
-	public void insertSample(SampleVO vo) throws Exception{
-		sampleDAO.insertSample(vo);
 	}
 	
 	@Override

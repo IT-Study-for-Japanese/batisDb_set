@@ -8,11 +8,9 @@ import java.util.List;
 
 public interface SampleService {
 
-	void insertSample(SampleVO vo) throws Exception;
+	List<BikeReservePlaceVO> selectBikePlace() throws Exception; //대여소 전체 리스트
 
-	List<BikeReservePlaceVO> selectBikePlace() throws Exception; //대여소전체리스트
-
-	List<BikeReservePlaceVO> selectSearchBikePlace(BikeReservePlaceVO reservePlaceName); //대여소검색리스트
+	List<BikeReservePlaceVO> selectSearchBikePlace(BikeReservePlaceVO reservePlaceName); //대여소 검색 리스트
 
 	int selectBikeCount(BikeVO bike); //대여가능 자전거 수
 

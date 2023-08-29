@@ -2,28 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.sqlmap.mappers.EgovSample_Sample_SQL">
 	<!-- mapper-config에서 등록한 객체 -->
-	<resultMap type="test" id="testResult">
-		<result property="id" column="id"/>
-		<result property="name" column="name"/>
-	</resultMap>
-
+	
 	<resultMap type="BikeReservePlace" id="BikeReservePlace">
 		<result property="reservePlaceId" column="bike_reserve_place_id"/>
 		<result property="reservePlaceName" column="bike_reserve_place_name"/>
 		<result property="reservePlaceAddr" column="bike_reserve_place_addr"/>
 	</resultMap>
-
-	<insert id="insertSample" >
-		insert into test(id, name) values(
-		#{id},
-		#{name})		
-	</insert>
 	
 	<select id="selectBikePlace" resultMap="BikeReservePlace"> <!-- 대여소 리스트 -->
 		select * from bike_reserve_place
 	</select>
 	
-	<select id="selectSearchBikePlace" parameterType="BikeReservePlace" resultMap="BikeReservePlace">
+	<select id="selectSearchBikePlace" parameterType="BikeReservePlace" resultMap="BikeReservePlace"> <!-- 대여소 검색 리스트 -->
 	    SELECT * FROM bike_reserve_place 
 	    WHERE bike_reserve_place_addr LIKE CONCAT('%', #{reservePlaceName}, '%') OR 
 	          bike_reserve_place_name LIKE CONCAT('%', #{reservePlaceName}, '%')

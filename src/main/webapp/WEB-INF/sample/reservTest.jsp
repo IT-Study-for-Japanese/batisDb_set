@@ -10,83 +10,25 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>대여소지도</title>
-<script type="text/javascript"
-	src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ug0avytojj"></script>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${mapKey}"></script> <!-- 네이버지도api설정  -->
 <!-- 네이버지도api설정  -->
-<script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/service/rent.js"></script>
-<!-- jquery 파일 -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/custom/rent.css" />
-<!-- css 파일 -->
-
-<script>
-
-	$(document).ready(function() {
-    $(".reserve-go").click(function () {
-		
-        var formDataArray = $("#reserveForm").serializeArray();
-        var formDataObject = {};
-		
-        $.each(formDataArray, function(i, item) {
-            formDataObject[item.name] = item.value;
-        });
-        alert(formDataObject);
-        $.ajax({
-            url: "reserveAjaxTest.do",// 서버에서 데이터를 가져올 URL
-            type: "POST",
-            contentType :"application/json",
-            data: JSON.stringify(formDataObject),   // 화 다.
-            success: function (response) {
-                alert("예약 완료되었습니다.");
-                location.reload();
-            },
-            error: function (e) {
-                console.error(e);
-            }
-        });
-    
-    });
-
-});
-	
-</script>
+<script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script> <!-- jquery 파일 -->
+<script src="${pageContext.request.contextPath}/js/service/rent.js"></script><!-- jsp파일 -->
+<%-- <script src="${pageContext.request.contextPath}/js/components/public/map.js"></script> map파일 작동안함 --%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/custom/rent.css" /><!-- css 파일 -->
 
 <style>
-.modal {
+.modal { /* 팝업창 css파일에 옮기면 작동안함 */
 	display: none; /* 클릭전 안보이게한다 */
 	position: fixed;
 	z-index: 1;
-	left: 0;
-	top: 0;
+	left: 40%;
+	top: 20%;
 	width: "200px";
 	height: "200px";
 	/* overflow: auto; */
 }
-
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%;
-}
-
-/* 닫기 버튼 스타일 */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
 </style>
-
 
 </head>
 <body>
@@ -96,7 +38,7 @@
 	<div class="scrolle">
 
 		<form id="form2">
-			<input name="reservePlaceName" class="search-input" type="text"><input
+			<input name="reservePlaceName" class="search-input" type="text" placeholder="주소 또는 대여소 이름을 입력하세요"><input
 				class="search-button" type="button" value="검색">
 		</form>
 
@@ -113,11 +55,11 @@
 
 			<tbody>
 
-				<c:forEach items="${rentList}" var="res">
+				<c:forEach items="${rentList}" var="res" varStatus="loop">
 					<!--  -->
 					<tr>
-						<td>${res.reservePlaceName}</td>
-						<td>${res.reservePlaceAddr}</td>
+						<td class="clickable" data-index="${loop.index}">${res.reservePlaceName}</td>
+						<td class="clickable" data-index="${loop.index}">${res.reservePlaceAddr}</td>
 						<td style="display: none">${res.reservePlaceId}</td>
 						<td>${res.count}</td>
 						<td><c:choose>
@@ -158,9 +100,9 @@
 		</div>
 	</form>
 
-	<script>
+	<script> /* map파일은 작동을 안함.... */
 	
-		/* var rentList2 = JSON.parse('${rentList}'); */
+		
 		var rentList = JSON.parse('${jsonPlacelist}');
 
 		var HOME_PATH = window.HOME_PATH || '.'; //이벤트 실행 요소?
@@ -169,34 +111,34 @@
 			zoom : 14
 		});
 
-		//var rentList2 = ${rentList}; 컨트롤러에서 보낸 list, 마크에 쓰려는 자전거대여소 정보인데 지도가 안보임 해결필요....
+		
 
 		var latlngArr = []; //마커 위도,경도 
 		var markerName = []; //마커 이름
-
-		latlngArr.push(new naver.maps.LatLng(35.8418, 128.68));//대공원역
-		latlngArr.push(new naver.maps.LatLng(35.8363, 128.7525));//영남대역
+		
 		latlngArr.push(new naver.maps.LatLng(35.8569, 128.5553));//두류역
 		latlngArr.push(new naver.maps.LatLng(35.8043, 128.5005));//화원역
 		latlngArr.push(new naver.maps.LatLng(35.8792, 128.6273));//동대구역
 		latlngArr.push(new naver.maps.LatLng(35.8648, 128.5935));//반월당역
-		latlngArr.push(new naver.maps.LatLng(35.8699, 128.5823));//서문시장역
-		/* latlngArr.push(new naver.maps.LatLng(35.8751, 128.5954));//대구역 */
-
-		latlngArr.push(new naver.maps.LatLng(35.8889, 128.5682));//팔달시장역
-		latlngArr.push(new naver.maps.LatLng(35.8374, 128.5572));//서부정류장역
 		latlngArr.push(new naver.maps.LatLng(35.8459, 128.625));//어린이회관역
+		latlngArr.push(new naver.maps.LatLng(35.8363, 128.7525));//영남대역
+		latlngArr.push(new naver.maps.LatLng(35.8418, 128.68));//대공원역
+		latlngArr.push(new naver.maps.LatLng(35.8374, 128.5572));//서부정류장역
+		latlngArr.push(new naver.maps.LatLng(35.8889, 128.5682));//팔달시장역
+		latlngArr.push(new naver.maps.LatLng(35.8699, 128.5823));//서문시장역
 
-		markerName.push("대공원역"); //마커 이름등록필요
-		markerName.push("영남대역");
+		/* latlngArr.push(new naver.maps.LatLng(35.8751, 128.5954));//대구역 */
+		
 		markerName.push("두류역");
 		markerName.push("화원역");
 		markerName.push("동대구역");
 		markerName.push("반월당역");
-		markerName.push("서문시장역");
-		markerName.push("팔달시장역");
-		markerName.push("서부정류장역");
 		markerName.push("어린이회관역");
+		markerName.push("영남대역");
+		markerName.push("대공원역"); 
+		markerName.push("서부정류장역");
+		markerName.push("팔달시장역");
+		markerName.push("서문시장역");
 
 		var contentString = [ // 마커 표시창 문구 
 
@@ -218,7 +160,18 @@
 			}));
 
 		}
+		
+		$(".clickable").on("click", function(e) { //클릭시 지도 화면 이동
+		    
+			var index =$(this).data("index");
+			
+			e.preventDefault();
 
+		    map.panTo(latlngArr[index]);
+		});
+		
+		
+		
 		for (let i = 0; i < markers.length; i++) { //마커 띄우기 
 			(function(index) {
 				naver.maps.Event.addListener(markers[index], "click", function(
@@ -228,15 +181,15 @@
 							|| infowindow.marker !== markers[index]) { //클릭되지않은 마커 안내창연다.
 
 						contentString = [
-								'<div class="iw_inner">',
-								'   <h4>대여소명 : '
-										+ rentList[index].reservePlaceName
-										+ '</h4>',
-								'   <p>대여가능대수  : ' + rentList[index].count
-										+ ' <br />', '   </p>',
-								'<button class="reserve-button" onclick="reservePopup()">대여하기</button>',
-								'</div>' ].join('');
-
+						    '<div class="rental-info">', // 대여 정보 컨테이너 열기
+						    '   <h4>대여소명 : ' + rentList[index].reservePlaceName + '</h4>',
+						    '   <p>대여가능대수 : ' + rentList[index].count + ' <br />',
+						    '   <input type="hidden" class="reserve-place-id" value="' + rentList[index].reservePlaceId + '">', // 숨겨진 데이터 추가
+						    '   <button class="reserve-button-map" onclick="reservePopup()">대여하기</button>',
+						    '</div>' // 대여 정보 컨테이너 닫기
+						].join('');
+						
+							
 						infowindow.setContent(contentString);
 
 						infowindow.open(map, markers[index]);

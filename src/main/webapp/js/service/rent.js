@@ -1,9 +1,38 @@
 
 $(document).ready(function () {
     eventHandler();
+    
+     $(".reserve-go").click(function () {
+		
+        var formDataArray = $("#reserveForm").serializeArray();
+        var formDataObject = {};
+		
+        $.each(formDataArray, function(i, item) {
+            formDataObject[item.name] = item.value;
+        });
+        
+        $.ajax({
+            url: "reserveAjaxTest.do",// 서버에서 데이터를 가져올 URL
+            type: "POST",
+            contentType :"application/json",
+            data: JSON.stringify(formDataObject),   // 화 다.
+            success: function (response) {
+                alert("예약 완료되었습니다.");
+                location.reload();
+            },
+            error: function (e) {
+                console.error(e);
+            }
+        });
+    
+    });
+    
+    
+    
 });
 
-function eventHandler() {
+
+function eventHandler() { //리스트 검색 ajax
 
     $(".search-button").click(function () {
 
@@ -44,24 +73,35 @@ function eventHandler() {
 
 }
 
-function updateTable(data) {
+function updateTable(data) { //검색 리스트 띄우기
 
     const tbody = $("table tbody"); //table요소 <tbody>선택
     tbody.empty();
-
+	
     $.each(data, function (index, rent) {
             var row = $("<tr>");
             row.append($("<td>").text(rent.reservePlaceName));
             row.append($("<td>").text(rent.reservePlaceAddr));
             row.append($("<td>").text(rent.count));
+            
+            var hiddenTd = $("<td>")
+            .css("display", "none") // Set inline style
+            .text(rent.reservePlaceId); // Set the content
+        	row.append(hiddenTd);
+            
             if (rent.count > 0) {
             var reserveButton = $("<button>")
                 .text("예약")
                 .addClass("reserve-button")
                 .click(function () {
                     // 예약 버튼 클릭 시 동작 추가
-                    alert("예약 버튼 클릭");
-                });
+                    
+                    var row = $(this).closest("tr");
+               		var reservePlaceIdInform = row.find("td:hidden").text();
+               		$("#reservePlaceIdInform").val(reservePlaceIdInform);
+               		reservePopup();
+                })
+                .attr("onclick", "reservePopup()");
             row.append($("<td>").append(reserveButton));
         } else {
             var disabledButton = $("<button>")
@@ -71,20 +111,19 @@ function updateTable(data) {
             row.append($("<td>").append(disabledButton));
         }
             tbody.append(row);
-        }
-    );
+        });
 }
 
-function reservePopup() {
-	$("#myModal").css("display", "block");
+function reservePopup() { //예약 팝업창 띄우기
+	//$("#myModal").css("display", "block"); //효과없이 띄우기
+	$("#myModal").fadeIn(); //부드럽게 띄우기
+	
 }
-$(document).ready(function () {
+$(document).ready(function () { //예약정보 팝업창에 전달
     $(".reserve-button").click(function () {
     	
         var reservePlaceIdInform = $(this).closest("tr").find("td:eq(2)").text();
         $("#reservePlaceIdInform").val(reservePlaceIdInform); // reservePlaceId 값을 숨겨진 필드에 설정
     });
 });
-
-
 
