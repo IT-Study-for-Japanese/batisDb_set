@@ -187,10 +187,4 @@ public class ReserveController {
 		return null;
 		
 	}
-	
-	
-	
-	
-	
-	
 }
