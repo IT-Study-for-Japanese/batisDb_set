@@ -2,7 +2,7 @@
 $(document).ready(function () {
     eventHandler();
     
-     $(".reserve-go").click(function () {
+     $(".reserve-go").click(function () { //예약 처리 ajax
 		
         var formDataArray = $("#reserveForm").serializeArray();
         var formDataObject = {};

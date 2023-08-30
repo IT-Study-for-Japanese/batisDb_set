@@ -7,11 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> <!-- 뷰포트 설정 -->
 <title>대여소지도</title>
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${mapKey}"></script> <!-- 네이버지도api설정  -->
-<!-- 네이버지도api설정  -->
 <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script> <!-- jquery 파일 -->
 <script src="${pageContext.request.contextPath}/js/service/rent.js"></script><!-- jsp파일 -->
 <%-- <script src="${pageContext.request.contextPath}/js/components/public/map.js"></script> map파일 작동안함 --%>
@@ -29,7 +27,7 @@
 	/* overflow: auto; */
 }
 
-.rental-info {
+.rental-info { /* 마커 클릭시 알람창 효과 */
 	animation: fadein 1s;
 	-moz-animation: fadein 1s; /* Firefox */
 	-webkit-animation: fadein 1s; /* Safari and Chrome */
@@ -75,18 +73,17 @@
 
 </head>
 <body>
-	<div id="map" style="width: 100%; height: 880px"></div>
-	<!-- 지도 div 크기 설정  -->
-
+	<div id="map" style="width: 100%; height: 880px"></div> <!-- 지도 div 크기 설정  -->
+	
 	<div class="scrolle">
 
-		<form id="form2">
+		<form id="form2"> <!-- 대여소 목록 검색 form 및 검색창-->
 			<input name="reservePlaceName" class="search-input" type="text" placeholder="주소 또는 대여소 이름을 입력하세요"><input
-				class="search-button" type="button" value="검색">
+				class="search-button" type="button" value="검색"> 
 		</form>
 
-		<table>
-			<!-- 목록창 -->
+		<table> <!-- 목록창 -->
+			
 			<thead>
 				<tr>
 					<th>대여소명</th>
@@ -98,8 +95,8 @@
 
 			<tbody>
 
-				<c:forEach items="${rentList}" var="res" varStatus="loop">
-					<!--  -->
+				<c:forEach items="${rentList}" var="res" varStatus="loop"> <!-- 리스트 정보 -->
+					
 					<tr>
 						<td class="clickable" data-index="${loop.index}">${res.reservePlaceName}</td>
 						<td class="clickable" data-index="${loop.index}">${res.reservePlaceAddr}</td>
@@ -123,7 +120,8 @@
 		</table>
 
 	</div>
-	<form id="reserveForm">
+	
+	<form id="reserveForm"> <!-- 예약창팝업 -->
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
@@ -146,18 +144,18 @@
 	<script> /* map파일은 작동을 안함.... */
 	
 		
-		var rentList = JSON.parse('${jsonPlacelist}');
+		var rentList = JSON.parse('${jsonPlacelist}'); /* 검색리스트  */
 
-		var HOME_PATH = window.HOME_PATH || '.'; //이벤트 실행 요소?
-		var map = new naver.maps.Map('map', { //맵 위도, 경도 및 크기설정
+		var HOME_PATH = window.HOME_PATH || '.'; //지도 이벤트 실행 요소?
+		var map = new naver.maps.Map('map', { //지도 위도, 경도 및 크기설정
 			center : new naver.maps.LatLng(35.8648, 128.5935),
 			zoom : 14
 		});
 
 		
 
-		var latlngArr = []; //마커 위도,경도 
-		var markerName = []; //마커 이름
+		var latlngArr = []; //마커 위도,경도 배열
+		var markerName = []; //마커 이름 배열
 		
 		latlngArr.push(new naver.maps.LatLng(35.8569, 128.5553));//두류역
 		latlngArr.push(new naver.maps.LatLng(35.8043, 128.5005));//화원역

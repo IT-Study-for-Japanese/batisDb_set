@@ -36,7 +36,7 @@ public class ReserveController {
 	@Resource(name="sampleService")
 	private SampleService sampleService; //서비스
 
-	@Value("#{config['naver.map.key']}")
+	@Value("#{config['naver.map.key']}") //지도 api키 
 	private String mapKey;
 
 	/*
@@ -76,7 +76,7 @@ public class ReserveController {
 				br.setCount(sampleService.selectBikeCount(bike)); 
 				
 				list.setCount(sampleService.selectBikeCount(bike));
-				System.out.println("확인"+list.getCount());
+				
 			}
 			
 			model.addAttribute("rentList", placeList); // 대여소 리스트 모델 등록
@@ -109,7 +109,7 @@ public class ReserveController {
 				
 
 				list2.setCount(sampleService.selectBikeCount(bike));
-				System.out.println("검색확인" + list2.getCount());
+				
 			}
 			
 			
@@ -129,20 +129,13 @@ public class ReserveController {
 	@RequestMapping(value="/reserveAjaxTest.do",method = RequestMethod.POST) // Ajax 예약처리 확인
 	@ResponseBody
 	public ResponseEntity reserveAjaxTest(@RequestBody ReservationVO reserve ,Model model) throws SQLException {
-		
-		System.out.println("컨트롤러 확인" + reserve.getTextPeriod());
-		System.out.println("컨트롤러 확인" + reserve.getBikeReservePlaceId());
-		
+	
 		BikeVO bike = new BikeVO(); // 테스트용 객체
-		
 		
 		bike.setBikeReservePlaceId(reserve.getBikeReservePlaceId()); //대여소번호 대입
 		bike.setBikeStatus(true); //가능여부 대입
-		System.out.println("컨트롤러 확인" + reserve.getBikeReservePlaceId());
 			
 		int bike_id = sampleService.selectBikeId(bike); // 예약될 자전거번호
-			
-		System.out.println("자전거번호확인" + bike_id);
 			
 		Date currentDate = new Date(); // 변환할시간객체
 		
@@ -162,7 +155,6 @@ public class ReserveController {
 			e.printStackTrace();
 			
 		}
-		System.out.println("시간변환" + sqlTime);
 		
 		rv.setUserId("tkj");// 유저id (jsp에서 받아오기) 합칠때 session에서 가져오기
 		rv.setBikeId(bike_id); // 자전거id
@@ -173,12 +165,9 @@ public class ReserveController {
 
 		if (result >= 1) { // 예약성공시
 
-			System.out.println("예약정보입력 성공");
 			int result2 = sampleService.changeStatus(bike_id);
 
 			if (result2 >= 1) {
-
-				System.out.println("예약상태변경성공");
 
 			}
 
