@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .scrolle {
 	max-height: 250px; /* 창 크기 */
 	overflow-y: auto; /* 세로 스크롤을 허용 */

@@ -9,6 +9,15 @@
 		<result property="reservePlaceAddr" column="bike_reserve_place_addr"/>
 	</resultMap>
 	
+	<resultMap type="Reservation" id="Reservation">
+		<result property="reserveId" column="reserve_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="bikeId" column="bike_id"/>
+		<result property="startTime" column="start_time"/>
+		<result property="period" column="period"/>
+	</resultMap>
+	
+	
 	<select id="selectBikePlace" resultMap="BikeReservePlace"> <!-- 대여소 리스트 -->
 		select * from bike_reserve_place
 	</select>
@@ -40,5 +49,13 @@
 		update bike set bike_status = 0 where bike_id = #{bikeId};
 		
 	</update>
+	
+	<select id="checkReservation" resultType="int"> <!-- 예약 내역 확인 -->
+		
+		SELECT COUNT(*) AS user_count
+		FROM reservation
+		where user_id = #{userId};	
+
+	</select>
 	
 </mapper>

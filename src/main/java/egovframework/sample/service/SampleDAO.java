@@ -20,5 +20,7 @@ public interface SampleDAO {
 	int insertReservation(ReservationVO rv); //예약 처리
 
 	int changeStatus(int bike_id); //자전거 예약 상태 변경
+
+	int checkReservation(ReservationVO rvCheck); //예약 내역 확인
 	
 }

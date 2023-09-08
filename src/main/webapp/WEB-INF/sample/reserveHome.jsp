@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> <!-- 뷰포트 설정 -->
 <title>대여소지도</title>
+
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${mapKey}"></script> <!-- 네이버지도api설정  -->
 <script src="${pageContext.request.contextPath}/js/lib/jquery/jquery-3.7.0.min.js"></script> <!-- jquery 파일 -->
 <script src="${pageContext.request.contextPath}/js/service/rent.js"></script><!-- jsp파일 -->
@@ -77,11 +78,19 @@
 	
 	<div class="scrolle">
 
-		<form id="form2"> <!-- 대여소 목록 검색 form 및 검색창-->
+ 		<form id="form2"> <!-- 대여소 목록 검색 form 및 검색창 ajax-->
 			<input name="reservePlaceName" class="search-input" type="text" placeholder="주소 또는 대여소 이름을 입력하세요"><input
 				class="search-button" type="button" value="검색"> 
 		</form>
-
+		 
+		
+		<!-- <form action="searchPage.do" method="post"> 대여소 목록 검색 form 및 검색창 컨트롤러로 보내는 버전
+			<input name="reservePlaceName" class="search-input" type="text" placeholder="주소 또는 대여소 이름을 입력하세요">
+			<input
+				class="search-button" type="submit" value="검색">
+		</form> -->
+		
+		
 		<table> <!-- 목록창 -->
 			
 			<thead>
@@ -127,6 +136,10 @@
 				<span class="close">&times;</span>
 				<!-- 팝업 내용을 추가하세요 -->
 				<h2>예약 하기</h2>
+				<input type="hidden" id="reservePlaceName"
+					name="reservePlaceName">
+				<td style="font-size: 20px;" class="title td"> <span id="reservePlaceNameCell"></span></td>
+				<td></td>
 				<input type="hidden" id="reservePlaceIdInform"
 					name="bikeReservePlaceId">
 				<!-- 선택한 대여소id -->
@@ -180,9 +193,9 @@
 		markerName.push("서부정류장역");
 		markerName.push("팔달시장역");
 		markerName.push("서문시장역");
-
+		
 		var contentString = [ // 마커 표시창 문구 
-
+		
 		].join('');
 
 		var infowindow = new naver.maps.InfoWindow({ //정보표시창
@@ -192,24 +205,34 @@
 		var markers = []; //마커 배열
 
 		for (var i = 0; i < latlngArr.length; i++) { //마커 등록
+		    
+			var marker = new naver.maps.Marker({
+		        map: map,
+		        title: markerName[i],
+		        position: latlngArr[i],
+		    	
+		     	
+	            });
+		    
+		    if (rentList[i].count === 0) { // rentList[i].count가 0인 경우
+		        marker.setIcon({ // 아이콘 설정
+		        	content: '<img src="${pageContext.request.contextPath}/mapImg/unable.png"/>"',
+		            size: new naver.maps.Size(32, 32),
+		            anchor: new naver.maps.Point(16, 32)
+		        });
+		    
+		        		}
+		    markers.push(marker);
 
-			markers.push(new naver.maps.Marker({
-				map : map,
-				title : markerName[i],
-				position : latlngArr[i]
-
-			}));
-
-		}
-		
+		} 
 		$(".clickable").on("click", function(e) { //클릭시 지도 화면 이동
 		    
 			var index =$(this).data("index");
 			
 			e.preventDefault();
-
+			map.setZoom(16);
 		    map.panTo(latlngArr[index]);
-		    map.setZoom(15);
+		    
 		});
 		
 		
@@ -224,7 +247,7 @@
 
 						contentString = [
 						    '<div class="rental-info">', // 대여 정보 컨테이너 열기
-						    '   <h4>대여소명 : ' + rentList[index].reservePlaceName + '</h4>',
+						    '   <h4>대여소명 :  <span class="reserve-place-name-td">' + rentList[index].reservePlaceName + '</span></h4>',
 						    '   <p>대여가능대수 : ' + rentList[index].count + ' <br />',
 						    '   <input type="hidden" class="reserve-place-id" value="' + rentList[index].reservePlaceId + '">', // 숨겨진 데이터 추가
 						    '   <button class="reserve-button-map" ' + (rentList[index].count > 0 ? 'onclick="reservePopup2(this)"' : 'disabled') + '>'
@@ -236,6 +259,9 @@
 						infowindow.setContent(contentString);
 
 						infowindow.open(map, markers[index]);
+						
+						
+						
 					} else {
 						infowindow.close();
 					}

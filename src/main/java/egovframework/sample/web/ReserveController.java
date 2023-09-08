@@ -92,7 +92,7 @@ public class ReserveController {
 
 	}
 
-	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색
+	@RequestMapping(value="/search.do",method = RequestMethod.POST) //리스트 검색 ajax 
 	@ResponseBody
 	public ResponseEntity searchRent(@RequestBody BikeReservePlaceVO search ,Model model) throws SQLException {
 		
@@ -125,11 +125,37 @@ public class ReserveController {
 		return result;
 	}
 	
+	@RequestMapping(value="/searchPage.do",method = RequestMethod.POST) //리스트 검색 페이지 이동
+	public String searchRentPage(@RequestParam String reservePlaceName,Model model) {
+		
+		System.out.println("테스트"+reservePlaceName);
+		
+		
+		model.addAttribute("mapKey", mapKey);
+		
+		return "reserveHome";
+		
+	}
+	
+	
 	
 	@RequestMapping(value="/reserveAjaxTest.do",method = RequestMethod.POST) // Ajax 예약처리 확인
 	@ResponseBody
-	public ResponseEntity reserveAjaxTest(@RequestBody ReservationVO reserve ,Model model) throws SQLException {
-	
+	//public ResponseEntity reserveAjaxTest(@RequestBody ReservationVO reserve ,Model model) throws SQLException {
+	public boolean reserveAjaxTest(@RequestBody ReservationVO reserve ,Model model) throws SQLException {
+		ReservationVO rvCheck = new ReservationVO(); // 예약내역 확인용 객체
+		
+		rvCheck.setUserId("tkjj"); //session에서 id 가져오도록 바꿀 것
+		int resultCheck = sampleService.checkReservation(rvCheck); // 예약된 적 있는지 확인 
+		System.out.println(resultCheck);
+		if(resultCheck!=0) {
+			System.out.println(resultCheck);
+			System.out.println("예약 존재합니다.");
+			
+			return false;
+			
+		}else {
+		System.out.println("예약정보없음");
 		BikeVO bike = new BikeVO(); // 테스트용 객체
 		
 		bike.setBikeReservePlaceId(reserve.getBikeReservePlaceId()); //대여소번호 대입
@@ -156,7 +182,7 @@ public class ReserveController {
 			
 		}
 		
-		rv.setUserId("tkj");// 유저id (jsp에서 받아오기) 합칠때 session에서 가져오기
+		rv.setUserId("tkjj");// 유저id (jsp에서 받아오기) 합칠때 session에서 가져오기
 		rv.setBikeId(bike_id); // 자전거id
 		rv.setStartTime(new Date(currentDate.getTime())); // 현재시간
 		rv.setPeriod(sqlTime); // 이용시간 (jsp에서 받아오기)
@@ -173,7 +199,8 @@ public class ReserveController {
 
 		}
 		
-		return null;
+		return true;
 		
+	}
 	}
 }

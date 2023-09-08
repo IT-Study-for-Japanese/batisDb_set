@@ -51,5 +51,11 @@ public class SampleDAOIBatis extends EgovAbstractMapper implements SampleDAO{
 		
 		return update("changeStatus", bike_id);
 	}
+
+	@Override
+	public int checkReservation(ReservationVO rvCheck) { //예약 내역 확인
+		
+		return selectOne("checkReservation",rvCheck);
+	}
 	
 }

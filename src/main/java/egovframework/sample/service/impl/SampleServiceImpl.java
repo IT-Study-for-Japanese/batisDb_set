@@ -56,5 +56,11 @@ public class SampleServiceImpl  implements SampleService {
 		return sampleDAO.changeStatus(bike_id);
 		
 	}
+
+	@Override
+	public int checkReservation(ReservationVO rvCheck) { //예약 내역 확인
+		
+		return sampleDAO.checkReservation(rvCheck);
+	}
 	
 }
